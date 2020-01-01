@@ -2,32 +2,43 @@
 
 {% block main_content %}
 
-<h1>{{question.question_text}}</h1>
+<!--<h1>{{question.question_text}}</h1>-->
 
-{% if error_message %} <p> <strong>{{error_message}}</strong></p> {% endif %}
+<!--{% if error_message %} <p> <strong>{{error_message}}</strong></p> {% endif %}-->
+
+<!--<form action="{% url 'polls:vote' question.id %}" method="post">-->
+    <!--{% csrf_token %}-->
+    <!--{% for choices in question.choices_set.all %}-->
+        <!--<input type="radio" name ="choices" id="choices{{forloop.counter}}" value="{{choices.id}}"/>-->
+        <!--<label for="choices{{forloop.counter}}">{{choices.choices_text}}</label> <br>-->
+    <!--{% endfor %}-->
+    <!--<input type= "submit" value="vote"/>-->
+
+
+
+<!--</form>-->
+
+<h1>{{ question.question_text }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
 
 <form action="{% url 'polls:vote' question.id %}" method="post">
-    {% csrf_token %}
-    {% for choice in question.choice_set.all %}
-        <input type="radio" name ="choice" id="choice{{forloop.counter}}" value=" {{choice.id}}"/>
-        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label> <br>
-    {% endfor %}
-    <input type="submit" value="vote"/>
-
-
-
+{% csrf_token %}
+{% for choices in question.choices_set.all %}
+    <input type="radio" name="choices" id="choices{{ forloop.counter }}" value="{{ choices.id }}">
+    <label for="choices{{ forloop.counter }}">{{ choices.choices_text }}</label><br>
+{% endfor %}
+<input type="submit" value="Vote">
 </form>
 
+<!--<ul>-->
+    <!--{% for choices in question.choice_set.all %}-->
+        <!--<li>{{choices.choice_text}}</li>-->
+    <!--{% endfor %}-->
 
 
-<ul>
-    {% for choices in question.choice_set.all %}
-        <li>{{choices.choice_text}}</li>
-    {% endfor %}
+<!--</ul>-->
 
-
-</ul>
-
-{% endblock %}
+<!--{% endblock %}-->
 
 
